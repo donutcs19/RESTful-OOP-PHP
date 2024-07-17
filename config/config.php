@@ -1,8 +1,8 @@
 <?php 
     class Config {
         private  $HOST = "localhost";
-        private $USER = "shikikie";
-        private $PASSWORD = "Kikie@564133";
+        private $USER = "";
+        private $PASSWORD = "";
         private $DBNAME = "restful-oop";
          // Data source name
          

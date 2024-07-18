@@ -15,7 +15,7 @@
         if ($id != 0){
             $data = $user->fetch($id);
         }else{
-            $data = $user->fetch();
+            $data = $user->fetchAll();
         }
         echo json_encode($data);
     }
@@ -30,6 +30,37 @@
             echo $user->message("User added successfully", false);
         }else{
             echo $user->message("Failed to add an user", true);
+        }
+    }
+
+    //Update data
+    if ($api == "PUT"){
+        parse_str(file_get_contents('php://input'), $post_input);
+        $name = $user->test_input($post_input['name']);
+        $email = $user->test_input($post_input['email']);
+        $phone = $user->test_input($post_input['phone']);
+
+        if ($id !=null){
+            if ($user->update($name, $email, $phone, $id)){
+                echo $user->message("User update success", false);
+            }else{
+                echo $user->message("Failed to user update ", true);
+            }
+        }else{
+            echo $user->message("User not found", true);
+        }
+    }
+
+    // Delete data
+    if($api == "DELETE"){
+        if ($id != null){
+            if ($user->delete($id)){
+                echo $user->message("User deleted success", false);
+            }else{
+                echo $user->message("Failed to delete user", true);
+            }  
+        }else{
+            echo $user->message("User not found", true);
         }
     }
 ?>

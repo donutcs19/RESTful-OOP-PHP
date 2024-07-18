@@ -1,39 +1,35 @@
-
-        <?php 
-
-        class Config {
-            private const DBHOST = "localhost";
-            private const DBUSER = "root";
-            private const DBPASS = "root";
-            private const DBNAME = "restful-oop";
-    
-            // Data source name
-            private $dsn = "mysql:host=" . self::DBHOST . ";dbname=" . self::DBNAME . "";
-            protected $conn = null;
-    
-            public function __construct()
-            {
-                try {
-                    $this->conn = new PDO($this->dsn, self::DBUSER, self::DBPASS);
-                    $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-                } catch (PDOException $e) {
-                    die("Connection failed: " . $e->getMessage());
-                }
-    
-                return $this->conn;
+<?php 
+    class Config {
+        private  $HOST = "localhost";
+        private $USER = "shikikie";
+        private $PASSWORD = "Kikie@564133";
+        private $DBNAME = "restful-oop";
+         // Data source name
+         
+         protected $conn = null;
+        public function __construct(){
+            
+            try {
+                $this->conn = new PDO("mysql:host=".$this->HOST.";dbname=".$this->DBNAME, $this->USER, $this->PASSWORD);
+                $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                
+            } catch (PDOException $e) {
+                die("[Cannot Connect] -> " .$e->getMessage());
             }
-    
-            public function test_input($data) {
-                $data = strip_tags($data);
-                $data = htmlspecialchars($data);
-                $data = stripslashes($data);
-                $data = trim($data);
-                return $data;
-            }
-    
-            public function message($content, $status) {
-                return json_encode(['message' => $content, 'error' => $status]);
-            }
+            return $this->conn;
         }
-    
-    ?>
+        //check data
+        public function test_input($data){
+            $data = strip_tags($data);
+            $data = htmlspecialchars($data);
+            $data = stripcslashes($data);
+            $data = trim($data);
+            return $data;
+        }
+        //convert JSON
+        public function message ($content, $status){
+            return json_encode(['message' => $content, 'error' => $status]);
+        }
+         
+    }
+?>
